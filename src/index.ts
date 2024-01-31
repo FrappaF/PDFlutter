@@ -1,3 +1,4 @@
+// Importing necessary modules from the file system, pdfkit and other local files
 import { createWriteStream } from "fs";
 import PDFDocument from "pdfkit";
 import PDFCenter from "./elements/alignment/pdf_center";
@@ -8,8 +9,10 @@ import { PDFImage } from "./elements/printable/pdf_image";
 import PDFTable from "./elements/printable/pdf_table";
 import { PDFText } from "./elements/printable/pdf_text";
 
+// Setting the margin for the PDF document
 const MARGIN = 10;
 
+// Creating a new PDF document with specific settings
 var doc = new PDFDocument({
     pdfVersion: '1.5',
     displayTitle: true,
@@ -17,23 +20,30 @@ var doc = new PDFDocument({
     margin: MARGIN
 });
 
+// Piping the PDF document to a write stream, which will write it to a file
 doc.pipe(createWriteStream('tabella.pdf'));
 
+// Adding a structure to the PDF document
 var struct = doc.struct('Document');
 doc.addStructure(struct);
 
+// Adding elements to the PDF document
 PDFColumnDocument(
     doc, 'A4', MARGIN,
     [
+        // Adding a table to the PDF document
         new PDFTable(
             ["prima", "seconda", "terza", "quarta", "quinta"],
             [
+                // Adding rows to the table
                 [
+                    // Adding cells to the row
                     new PDFText("CiaoCIAOOAOAOSD asdasdasdas asdasdfasdJOASJDaldkhaslkhdnkahskdhkashdklhaskdjhajksdhjkashjdhajkhkjasdkjaklsdjkajsdkjaklsdjklajsdkljaksldjkajsdkjakljsdlkjasdjlkasjdkasjdjaskljdkjasjdklaknaskdnakslndklanskdnandlankdsna", {flex: 1}), 
                     new PDFText("Ciao", {}), 
                     new PDFText("Ciao", {flex: 1}), new PDFText("Ciao", {}), 
                     new PDFImage('luft.png', {height: 100, flex: 4}),
                 ],
+                // Adding another row to the table
                 [
                     new PDFText("Mondo", {}), new PDFText("Mondo", {}), 
                     new PDFText("CiaoCIAOOAOAOSDJOASJDaldkhaslkhdnkahskdhkashdklhaskdjhajksdhjkashjdhajkhkjasdkjaklsdjkajsdkjaklsdjklajsdkljaksldjkajsdkjakljsdlkjasdjlkasjdkasjdjaskljdkjasjdklaknaskdnakslndklanskdnandlankdsna", {flex: 3}), 
@@ -44,8 +54,10 @@ PDFColumnDocument(
             ],
             {margin: 3}
         ),
+        // Adding a row to the PDF document
         new PDFRow(
             [
+                // Adding columns to the row
                 new PDFColumn(
                     [
                         new PDFText('Lorem', {fontSize: 22, flex: 6}),
@@ -64,10 +76,10 @@ PDFColumnDocument(
             ],
             {flex: 1}
         ),
+        // Adding an image to the PDF document
         new PDFCenter( new PDFImage('luft.png', {height: 100}), {} ),
     ]
 );
 
-// new PDFText("PROvA asdads", {width: 400, height: 400, align:"left", fontSize: }).render(doc, 50, 50);
-
+// Ending the PDF document, finalizing it and writing it to the file
 doc.end();
