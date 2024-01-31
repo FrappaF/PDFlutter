@@ -3,7 +3,7 @@ Build custom PDFs using Flutter like syntax and elements.
 
 ## How to run
 
-Run the command `npm run build`
+Run the command `npm install && npm run build`
 
 ## How to use it
 All the elements of a page must be children of a `PDFPage` object. 
